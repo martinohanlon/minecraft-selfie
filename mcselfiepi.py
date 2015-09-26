@@ -3,15 +3,18 @@
 # Minecraft Selfie Camera
 # Minecraft Picture Rendering Script By Ferran Fabregas (ferri.fc@gmail.com)
 
-from VideoCapture import Device
+import picamera
 from PIL import Image
 import math
 from mcpi.minecraft import Minecraft
 from time import sleep, time
 
 def takePicture(filename):
-    cam = Device()
-    cam.saveSnapshot(filename)
+    with picamera.PiCamera() as camera:
+        camera.start_preview(alpha=192)
+        sleep(1)
+        camera.capture(filename)
+        camera.stop_preview()
 
 def colormap(pixel):
     white=(221,221,221)
@@ -45,8 +48,7 @@ def colormap(pixel):
 
 def buildMCImage(mc, filename, pos):
 
-    MAXY = 100
-    #MAXY = 150
+    MAXY = 60
     im = Image.open(filename)
 
     #resize image file
@@ -75,13 +77,12 @@ mc.postToChat("Hit a block (right click with sword)")
 while True:
     #has a block been hit?
     for hit in mc.events.pollBlockHits():
-        filename = str(int(time())) + ".jpg"
+        filename = "/home/pi/" + str(int(time())) + ".png"
         mc.postToChat("Taking picture in 1 second")
         sleep(1)
         takePicture(filename)
         mc.postToChat("Building image")
         buildMCImage(mc, filename, hit.pos)
-        #buildMCImage(mc, "minecon-london.jpg", hit.pos)
         mc.postToChat("Image built")
 
         #clear any block hit events

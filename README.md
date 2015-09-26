@@ -13,8 +13,14 @@ Image rendering code based on a project by Ferran Fabregas http://projectlog.fer
 * mcselfiepi.py - Pi python program
 
 ##Pre-requisites
-PC program requires VideoCapture python library http://videocapture.sourceforge.net/
-Pi program requires the camera module and picamera python library https://picamera.readthedocs.org/en/release-1.10/ 
+PC program requires 
+* VideoCapture python library http://videocapture.sourceforge.net/
+
+Pi program requires 
+* the camera module
+* picamera python library https://picamera.readthedocs.org/en/release-1.10/ 
+* PIL, install with sudo apt-get install python-dev then sudo pip install Pillow
+
 
 ##Version history
 * 0.1 - Initial stable version
